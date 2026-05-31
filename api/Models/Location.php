@@ -4,6 +4,10 @@ namespace RestaurantAPI\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use RestaurantAPI\Models\RestaurantChains;
+
+use RestaurantAPI\Models\Category;
+
 class Location extends Model {
 
     protected $table = 'locations';
@@ -11,14 +15,22 @@ class Location extends Model {
     public $incrementing = true;
     public $timestamps = false;
 
-    
-    public function chain() {
-        return $this->belongsTo(RestaurantChains::class, 'chain_id');
+    // ONE location has MANY restaurant chains
+    public function chains() {
+        return $this->hasMany(
+            RestaurantChains::class,
+            'location_id',   // foreign key in restaurant_chains table
+            'location_id'    // local key in locations table
+        );
     }
 
-    
     public function categories() {
-        return $this->belongsToMany(Category::class, 'location_categories', 'location_id', 'category_id');
+        return $this->belongsToMany(
+            Category::class,
+            'location_categories',
+            'location_id',
+            'category_id'
+        );
     }
 
     public static function getLocations() {
