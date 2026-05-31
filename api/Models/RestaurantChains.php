@@ -4,6 +4,8 @@ namespace RestaurantAPI\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use RestaurantAPI\Models\Location;
+
 class RestaurantChains extends Model{
 
     protected $table = 'restaurant_chains';
