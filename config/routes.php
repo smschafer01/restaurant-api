@@ -18,17 +18,33 @@ return function (App $app) {
         return $response;
     });
 
-    //Route group for api/v1 pattern
+    // Route group for api/v1 pattern
     $app->group('/api/v1', function(RouteCollectorProxy $group) {
 
-    $group->group('/restaurant_chains', function(RouteCollectorProxy $group) {
-        $group->get('', 'RestaurantChains:index');
-        $group->get('/{chain_id}', 'RestaurantChains:view');
+        // Restaurant chains routes
+        $group->group('/restaurant_chains', function(RouteCollectorProxy $group) {
+            $group->get('', 'RestaurantChains:index');
+            $group->get('/{chain_id}', 'RestaurantChains:view');
+        });
+
+        // Locations routes
+        $group->group('/locations', function(RouteCollectorProxy $group) {
+            $group->get('', 'Location:index');
+            $group->get('/{location_id}', 'Location:view');
+
+            
+            $group->get('/by-chain/{chain_id}', 'Location:byChain');
+
+        
+            $group->get('/{location_id}/categories', 'Location:categories');
+        });
+
     });
 
-    $group->group('/locations', function(RouteCollectorProxy $group) {
-        $group->get('', 'Location:index');
-        $group->get('/{location_id}', 'Location:view');
+    //  fallback
+    $app->any('/{route:.*}', function (Request $request, Response $response) {
+        $response->getBody()->write("Page Not Found");
+        return $response->withStatus(404);
     });
 
-});
+};
