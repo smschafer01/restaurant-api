@@ -1,3 +1,5 @@
+<?php
+
 namespace RestaurantAPI\Controllers;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
