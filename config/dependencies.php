@@ -9,4 +9,8 @@ return function(Container $container) {
     $container->set('RestaurantChains', function() {
         return new RestaurantChainController();
     });
+    
+    $container->set('Location', function() {
+        return new \RestaurantAPI\Controllers\LocationController();
+    });
 };
