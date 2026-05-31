@@ -9,13 +9,13 @@ use RestaurantAPI\Controllers\ControllerHelper as Helper;
 
 class LocationController {
 
-    // GET /locations
+    // GET /api/v1/locations
     public function index(Request $request, Response $response, array $args) : Response {
         $results = Location::with('chains')->get();
         return Helper::withJson($response, $results, 200);
     }
 
-    // GET /locations/{id}
+    // GET /api/v1/locations/{location_id}
     public function view(Request $request, Response $response, array $args) : Response {
         $id = $args['location_id'];
 
@@ -25,16 +25,18 @@ class LocationController {
         return Helper::withJson($response, $results, 200);
     }
 
-    // OPTIONAL: GET /locations/by-chain/{chain_id}
+    // FIXED: GET locations that have a specific chain
     public function byChain(Request $request, Response $response, array $args) : Response {
         $chain_id = $args['chain_id'];
 
-        $results = Location::where('chain_id', $chain_id)->get();
+        $results = Location::whereHas('chains', function ($query) use ($chain_id) {
+            $query->where('chain_id', $chain_id);
+        })->get();
 
         return Helper::withJson($response, $results, 200);
     }
 
-    // GET /locations/{id}/categories
+    // GET /api/v1/locations/{location_id}/categories
     public function categories(Request $request, Response $response, array $args) : Response {
         $id = $args['location_id'];
 
