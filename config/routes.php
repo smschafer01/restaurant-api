@@ -1,6 +1,4 @@
 <?php
-
-use RestaurantAPI\Controllers\RestaurantChainController;
 use Slim\App;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -13,38 +11,30 @@ return function (App $app) {
         return $response;
     });
 
-    $app->get('/api/hello/{name}', function (Request $request, Response $response, array $args) {
-        $response->getBody()->write("Hello " . $args['name']);
-        return $response;
-    });
-
-    // Route group for api/v1 pattern
     $app->group('/api/v1', function(RouteCollectorProxy $group) {
 
-        // Restaurant chains routes
+        // Restaurant chains routes (Member 1)
         $group->group('/restaurant_chains', function(RouteCollectorProxy $group) {
             $group->get('', 'RestaurantChains:index');
             $group->get('/{chain_id}', 'RestaurantChains:view');
         });
 
-        // Locations routes
-        $group->group('/locations', function(RouteCollectorProxy $group) {
-            $group->get('', 'Location:index');
-            $group->get('/{location_id}', 'Location:view');
+        // Menu categories routes (Member 2)
+        $group->group('/menu_categories', function(RouteCollectorProxy $group) {
+            $group->get('', 'MenuCategory:index');
+            $group->get('/{category_id}', 'MenuCategory:view');
+        });
 
-            
-            $group->get('/by-chain/{chain_id}', 'Location:byChain');
-
-        
-            $group->get('/{location_id}/categories', 'Location:categories');
+        // Amenities routes (Member 2)
+        $group->group('/amenities', function(RouteCollectorProxy $group) {
+            $group->get('', 'Amenity:index');
+            $group->get('/{amenity_id}', 'Amenity:view');
         });
 
     });
 
-    //  fallback
     $app->any('/{route:.*}', function (Request $request, Response $response) {
         $response->getBody()->write("Page Not Found");
         return $response->withStatus(404);
     });
-
 };
