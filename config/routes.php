@@ -17,6 +17,7 @@ return function (App $app) {
         $group->group('/restaurant_chains', function(RouteCollectorProxy $group) {
             $group->get('', 'RestaurantChains:index');
             $group->get('/{chain_id}', 'RestaurantChains:view');
+            $group->get('/{chain_id}/locations', 'RestaurantChains:viewLocations');
         });
 
         // Menu categories routes (Member 2)
@@ -29,6 +30,14 @@ return function (App $app) {
         $group->group('/amenities', function(RouteCollectorProxy $group) {
             $group->get('', 'Amenity:index');
             $group->get('/{amenity_id}', 'Amenity:view');
+            $group->get('/{amenity_id}/locations', 'Amenity:viewAmenityLocations');
+        });
+
+        //Locations routes
+        $group->group('/locations', function(RouteCollectorProxy $group) {
+            $group->get('', 'Locations:index');
+            $group->get('/{location_id}', 'Locations:view');
+            $group->get('/{location_id}/amenities', 'Locations:viewAmenities');
         });
 
     });

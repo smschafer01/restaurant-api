@@ -3,6 +3,7 @@ use DI\Container;
 use RestaurantAPI\Controllers\RestaurantChainController;
 use RestaurantAPI\Controllers\MenuCategoryController;
 use RestaurantAPI\Controllers\AmenityController;
+use RestaurantAPI\Controllers\LocationsController;
 
 return function(Container $container) {
 
@@ -16,5 +17,9 @@ return function(Container $container) {
 
     $container->set('Amenity', function() {
         return new AmenityController();
+    });
+
+    $container->set('Locations', function() {
+        return new LocationsController();
     });
 };

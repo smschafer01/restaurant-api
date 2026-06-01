@@ -4,7 +4,7 @@ namespace RestaurantAPI\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-use RestaurantAPI\Models\Location;
+use RestaurantAPI\Models\Locations;
 
 class RestaurantChains extends Model{
 
@@ -20,13 +20,26 @@ class RestaurantChains extends Model{
     public static function getRestaurantChains() {
 
         //Retrieve all restaurant chains
-        $restaurantChains = self::all();
+        $restaurantChains = self::with('locations')->get();
         return $restaurantChains;
     }
 
     //View a specific restaurant chain by id
     public static function getRestaurantChainById(string $chain_id) {
         $restaurantChain = self::findOrFail($chain_id);
+        $restaurantChain->load('locations');
         return $restaurantChain;
+    }
+
+    //This defines the one-to-many relationships between restaurant chanins
+    //and locations.
+    public function locations(){
+        return $this->hasMany(Locations::class, 'chain_id');
+    }
+
+    public static function getLocationsByRestaurantChain(string $chain_id) {
+        $restaurantChain = self::findOrFail($chain_id)->locations;
+        return $restaurantChain;
+
     }
 }

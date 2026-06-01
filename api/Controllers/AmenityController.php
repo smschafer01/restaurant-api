@@ -22,4 +22,10 @@ class AmenityController {
         $results = Amenity::getAmenityById($id);
         return Helper::withJson($response, $results, 200);
     }
+
+    public function viewAmenityLocations(Request $request, Response $response, array $args) : Response {
+        $amenity_id = $args['amenity_id'];
+        $results = Amenity::getLocationAmenities($amenity_id);
+        return Helper::withJson($response, $results, 200);
+    }
 }

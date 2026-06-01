@@ -23,4 +23,10 @@ class RestaurantChainController {
 
         return Helper::withJson($response, $results, 200);
     }
+
+    public function viewLocations(Request $request, Response $response, array $args) : Response {
+        $chain_id = $args['chain_id'];
+        $results = RestaurantChains::getRestaurantChainById($chain_id);
+        return Helper::withJson($response, $results, 200);
+    }
 }

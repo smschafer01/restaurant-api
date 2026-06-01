@@ -16,4 +16,12 @@ class Amenity extends Model {
     public static function getAmenityById($id) {
         return self::findOrFail($id);
     }
+
+    public function locationAmenities() {
+        return $this->belongsToMany(Locations::class, 'location_amenities', 'amenity_id', 'location_id');
+    }
+
+    public static function getLocationAmenities(string $amenity_id) {
+        return self::with('locationAmenities')->findOrFail($amenity_id);
+    }
 }
