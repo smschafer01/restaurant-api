@@ -266,7 +266,7 @@
   "variable": [
     {
       "key": "base_url",
-      "value": ""
+      "value": "http://localhost/I425/restaurant-api/api/v1"
     }
   ]
 }
