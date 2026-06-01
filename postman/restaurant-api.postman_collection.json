@@ -1,0 +1,272 @@
+{
+  "info": {
+    "_postman_id": "8ab81139-4d27-433c-9cd5-6acd1f431872",
+    "name": "restaurant-api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "55214685",
+    "_collection_link": "https://go.postman.co/collection/55214685-8ab81139-4d27-433c-9cd5-6acd1f431872?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Restaurant Chains",
+      "item": [
+        {
+          "name": "View All Restaurant Chains",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/restaurant_chains",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "restaurant_chains"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "View Restaurant Chain by Chain ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/restaurant_chains/5",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "restaurant_chains",
+                "5"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "View a Restaurant Chains Locations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/restaurant_chains/4/locations",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "restaurant_chains",
+                "4",
+                "locations"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Amenities",
+      "item": [
+        {
+          "name": "Get all Amenities",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/amenities",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "amenities"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Amenities by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/amenities/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "amenities",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "View Amenities by Locations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/amenities/1/location",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "amenities",
+                "1",
+                "location"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Menu Categories",
+      "item": [
+        {
+          "name": "Get all Menu Categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/menu_categories",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "menu_categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Menu Categories by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/menu_categories/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "menu_categories",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Locations",
+      "item": [
+        {
+          "name": "View all Locations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/locations",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "locations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "View Location by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/locations/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "locations",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "View Locations by Amenitites",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/locations/1/amenities",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "locations",
+                "1",
+                "amenities"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Welcome Message",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}",
+          "host": [
+            "{{base_url}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": ""
+    }
+  ]
+}
