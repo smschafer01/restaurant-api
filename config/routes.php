@@ -23,17 +23,21 @@ return function (App $app) {
         // Menu categories routes (Member 2)
         $group->group('/menu_categories', function(RouteCollectorProxy $group) {
             $group->get('', 'MenuCategory:index');
+            $group->get('/search', 'MenuCategory:search');
             $group->get('/{category_id}', 'MenuCategory:view');
+            $group->delete('/{category_id}', 'MenuCategory:delete');
         });
 
         // Amenities routes (Member 2)
         $group->group('/amenities', function(RouteCollectorProxy $group) {
             $group->get('', 'Amenity:index');
+            $group->get('/search', 'Amenity:search');
             $group->get('/{amenity_id}', 'Amenity:view');
             $group->get('/{amenity_id}/locations', 'Amenity:viewAmenityLocations');
+            $group->delete('/{amenity_id}', 'Amenity:delete');
         });
 
-        //Locations routes
+        // Locations routes
         $group->group('/locations', function(RouteCollectorProxy $group) {
             $group->get('', 'Locations:index');
             $group->get('/{location_id}', 'Locations:view');
