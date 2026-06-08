@@ -18,9 +18,9 @@ class Locations extends Model {
 
 
     public static function getLocations() {
-        $locations = self::all();
-        return $locations;
+        return self::query();
     }
+
 
     public static function getLocationById($location_id) {
         $location = self::findOrFail($location_id);
