@@ -15,8 +15,9 @@ class MenuCategory extends Model {
     }
 
     public static function getMenuCategories() {
-        return self::all();
+        return self::query();
     }
+
 
     public static function getMenuCategoryById($id) {
         return self::findOrFail($id);
