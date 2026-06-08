@@ -11,7 +11,7 @@ class AmenityController {
     // GET /api/v1/amenities
     // Returns all amenities
     public function index(Request $request, Response $response, array $args) : Response {
-        $results = Amenity::getAmenities();
+        $results = Amenity::getAmenities($request);
         return Helper::withJson($response, $results, 200);
     }
 
