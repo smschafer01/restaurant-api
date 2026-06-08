@@ -5,6 +5,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use RestaurantAPI\Models\MenuCategory;
 use RestaurantAPI\Controllers\ControllerHelper as Helper;
+use RestaurantAPI\Validation\Validator;
  
 class MenuCategoryController {
  
@@ -87,6 +88,56 @@ class MenuCategoryController {
             }
         })->get();
  
+        return Helper::withJson($response, $results, 200);
+    }
+
+    //Create a menuCategory
+    public function create(Request $request, Response $response, array $args) : Response {
+
+        //Validate the request
+        $validation = Validator::validateMenuCategory($request);
+        if(!$validation) {
+            $results = [
+                'status' => "Validation failed",
+                'errors' => Validator::getErrors()
+            ];
+            return Helper::withJson($response, $results, 500);
+        }
+
+        //Create a new menuCategory
+        $menuCategory = MenuCategory::createMenuCategory($request);
+        if(!$menuCategory) {
+            $results['status']= "Menu Category cannot been created.";
+            return Helper::withJson($response, $results, 500);
+        }
+        $results = [
+            'status' => "Menu Category has been created.",
+            'data' => $menuCategory
+        ];
+        return Helper::withJson($response, $results, 200);
+    }
+
+    //Update a menu category
+    public function update(Request $request, Response $response, array $args) : Response {
+        //Validate the request
+        $validation = Validator::validateMenuCategory($request);
+        //if validation failed
+        if(!$validation) {
+            $results = [
+                'status' => "Validation failed",
+                'errors' => Validator::getErrors()
+            ];
+            return Helper::withJson($response, $results, 500);
+        }
+        $menuCategory = MenuCategory::updateMenuCategory($request);
+        if(!$menuCategory) {
+            $results['status']= "Menu Category cannot been updated.";
+            return Helper::withJson($response, $results, 500);
+        }
+        $results = [
+            'status' => "Menu Category has been updated.",
+            'data' => $menuCategory
+        ];
         return Helper::withJson($response, $results, 200);
     }
 }

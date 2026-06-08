@@ -22,4 +22,39 @@ class MenuCategory extends Model {
     public static function getMenuCategoryById($id) {
         return self::findOrFail($id);
     }
+
+    //Insert a new menu category
+    public static function createMenuCategory($request) {
+        //Retrieve parameters from request body
+        $params = $request->getParsedBody();
+        //Create a new MenuCategory instance
+        $menuCategory = new MenuCategory();
+        //Set the MenuCategory's attributes
+        foreach($params as $field => $value) {
+            $menuCategory->$field = $value;
+        }
+        //Insert the MenuCategory into the database
+        $menuCategory->save();
+        return $menuCategory;
+    }
+
+    //Update a menu category
+    public static function updateMenuCategory($request) {
+        //Retrieve parameters from request body
+        $params = $request->getParsedBody();
+        //Retrieve id from the request url
+        $id = $request->getAttribute('id');
+        $menuCategory = self::findOrFail($id);
+        if(!$menuCategory) {
+            return false;
+        }
+        //update attributes of the menu category
+        foreach($params as $field => $value) {
+            $menuCategory->$field = $value;
+        }
+        //save the student into the database
+        $menuCategory->save();
+        return $menuCategory;
+    }
+
 }
