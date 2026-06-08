@@ -8,12 +8,56 @@ use RestaurantAPI\Controllers\ControllerHelper as Helper;
 
 class AmenityController {
 
+
     // GET /api/v1/amenities
-    // Returns all amenities
-    public function index(Request $request, Response $response, array $args) : Response {
-        $results = Amenity::getAmenities();
-        return Helper::withJson($response, $results, 200);
+    // Returns all amenities with pagination + sorting
+public function index(Request $request, Response $response, array $args) : Response {
+
+    // Read query params
+    $params = $request->getQueryParams();
+
+    $page = isset($params['page']) ? max(1, intval($params['page'])) : 1;
+    $perPage = isset($params['per_page']) ? max(1, intval($params['per_page'])) : 10;
+
+    // Sorting
+    $allowedSortFields = ['amenity_id', 'amenity_name', 'description', 'icon_name'];
+    $sort = $params['sort'] ?? 'amenity_id';
+    $order = strtolower($params['order'] ?? 'asc');
+
+    if (!in_array($sort, $allowedSortFields)) {
+        $sort = 'amenity_id';
     }
+
+    if (!in_array($order, ['asc', 'desc'])) {
+        $order = 'asc';
+    }
+
+    // Pagination offset
+    $offset = ($page - 1) * $perPage;
+
+    // Query amenities with sorting + pagination
+    $results = Amenity::orderBy($sort, $order)
+        ->skip($offset)
+        ->take($perPage)
+        ->get();
+
+    // Total count for pagination metadata
+    $total = Amenity::count();
+    $totalPages = ceil($total / $perPage);
+
+    // Response structure
+    $payload = [
+        'data' => $results,
+        'pagination' => [
+            'page' => $page,
+            'per_page' => $perPage,
+            'total' => $total,
+            'total_pages' => $totalPages
+        ]
+    ];
+
+    return Helper::withJson($response, $payload, 200);
+}
 
     // GET /api/v1/amenities/{amenity_id}
     // Returns a single amenity by ID
