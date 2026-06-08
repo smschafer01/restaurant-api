@@ -8,12 +8,48 @@ use RestaurantAPI\Controllers\ControllerHelper as Helper;
  
 class MenuCategoryController {
  
-    // GET /api/v1/menu_categories
-    // Returns all menu categories
     public function index(Request $request, Response $response, array $args) : Response {
-        $results = MenuCategory::getMenuCategories();
-        return Helper::withJson($response, $results, 200);
+
+    $params = $request->getQueryParams();
+
+    $page = isset($params['page']) ? max(1, intval($params['page'])) : 1;
+    $perPage = isset($params['per_page']) ? max(1, intval($params['per_page'])) : 10;
+
+    $allowedSortFields = ['category_id', 'category_name', 'description'];
+    $sort = $params['sort'] ?? 'category_id';
+    $order = strtolower($params['order'] ?? 'asc');
+
+    if (!in_array($sort, $allowedSortFields)) {
+        $sort = 'category_id';
     }
+
+    if (!in_array($order, ['asc', 'desc'])) {
+        $order = 'asc';
+    }
+
+    $offset = ($page - 1) * $perPage;
+
+    $results = MenuCategory::orderBy($sort, $order)
+        ->skip($offset)
+        ->take($perPage)
+        ->get();
+
+    $total = MenuCategory::count();
+    $totalPages = ceil($total / $perPage);
+
+    $payload = [
+        'data' => $results,
+        'pagination' => [
+            'page' => $page,
+            'per_page' => $perPage,
+            'total' => $total,
+            'total_pages' => $totalPages
+        ]
+    ];
+
+    return Helper::withJson($response, $payload, 200);
+}
+
  
     // GET /api/v1/menu_categories/{category_id}
     // Returns a single menu category by ID
