@@ -18,11 +18,9 @@ class RestaurantChains extends Model{
 
     //Retrieve all professors
     public static function getRestaurantChains() {
-
-        //Retrieve all restaurant chains
-        $restaurantChains = self::with('locations')->get();
-        return $restaurantChains;
+        return self::with('locations');
     }
+
 
     //View a specific restaurant chain by id
     public static function getRestaurantChainById(string $chain_id) {
