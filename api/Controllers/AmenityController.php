@@ -40,23 +40,15 @@ class AmenityController {
 
     // GET /api/v1/amenities/search?q=keyword
     public function search(Request $request, Response $response, array $args) : Response {
-        $params = $request->getQueryParams();
-        $q = $params['q'] ?? '';
+    $params = $request->getQueryParams();
+    $q = $params['q'] ?? '';
 
-        if (empty($q)) {
-            return Helper::withJson($response, ['message' => 'Search query parameter q is required'], 400);
-        }
-
-        $keywords = explode(' ', trim($q));
-
-        $results = Amenity::where(function($query) use ($keywords) {
-            foreach ($keywords as $keyword) {
-                $query->orWhere('amenity_name', 'LIKE', "%{$keyword}%")
-                      ->orWhere('description', 'LIKE', "%{$keyword}%")
-                      ->orWhere('icon_name', 'LIKE', "%{$keyword}%");
-            }
-        })->get();
-
-        return Helper::withJson($response, $results, 200);
+    if (empty($q)) {
+        return Helper::withJson($response, ['message' => 'Search query parameter q is required'], 400);
     }
+
+    $keywords = explode(' ', trim($q));
+    $results = Amenity::searchAmenities($keywords);
+    return Helper::withJson($response, $results, 200);
+}
 }
