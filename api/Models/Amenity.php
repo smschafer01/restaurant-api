@@ -58,6 +58,16 @@ class Amenity extends Model {
         $amenity->save();
         return $amenity;
     }
+    // Search amenities by keyword across multiple fields
+    public static function searchAmenities($keywords) {
+        return self::where(function($query) use ($keywords) {
+            foreach ($keywords as $keyword) {
+                $query->orWhere('amenity_name', 'LIKE', "%{$keyword}%")
+                  ->orWhere('description', 'LIKE', "%{$keyword}%")
+                  ->orWhere('icon_name', 'LIKE', "%{$keyword}%");
+        }
+    })->get();
+}
 
 
 }
