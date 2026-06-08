@@ -52,7 +52,7 @@ class RestaurantChainController {
 }
 
 
-    //view a specific professor
+    //view a specific restaurant chain
     public function view(Request $request, Response $response, array $args) : Response {
         $chain_id = $args['chain_id'];
         $results = RestaurantChains::getRestaurantChainById($chain_id);

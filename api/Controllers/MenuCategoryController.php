@@ -11,7 +11,11 @@ class MenuCategoryController {
     // GET /api/v1/menu_categories
     // Returns all menu categories
     public function index(Request $request, Response $response, array $args) : Response {
-        $results = MenuCategory::getMenuCategories($request);
+        //Get querystring variables from url
+        $params = $request->getQueryParams();
+        $term = array_key_exists('q', $params) ? $params['q'] : "";
+        //Call the model method to get menu categories
+        $results = ($term) ? MenuCategory::searchMenuCategories($term) : MenuCategory::getMenuCategories();
         return Helper::withJson($response, $results, 200);
     }
 

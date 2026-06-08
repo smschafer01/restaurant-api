@@ -14,7 +14,7 @@ class MenuCategory extends Model {
         return $this->hasMany(MenuItem::class, 'category_id', 'category_id');
     }
 
-    public static function getMenuCategories($request) {
+    public static function getMenuCategories() {
     return self::all();
     }
 
@@ -55,13 +55,14 @@ class MenuCategory extends Model {
         $menuCategory->save();
         return $menuCategory;
     }
-   // Search menu categories by keyword across multiple fields
-    public static function searchMenuCategories($keywords) {
-        return self::where(function($query) use ($keywords) {
-        foreach ($keywords as $keyword) {
-            $query->orWhere('category_name', 'LIKE', "%{$keyword}%")
-                  ->orWhere('description', 'LIKE', "%{$keyword}%");
+    //Search for menu categories
+    public static function searchMenuCategories($term) {
+        if (is_numeric($term)) {
+            $query = self::where('category_id', $term);
+        } else {
+            $query = self::where('category_name', 'like', "%$term%")
+                ->orWhere('description', 'like', "%$term%");
         }
-    })->get();
-}
+        return $query->get();
+    }
 }
