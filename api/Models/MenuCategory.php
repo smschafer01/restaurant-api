@@ -56,5 +56,13 @@ class MenuCategory extends Model {
         $menuCategory->save();
         return $menuCategory;
     }
-
+   // Search menu categories by keyword across multiple fields
+    public static function searchMenuCategories($keywords) {
+        return self::where(function($query) use ($keywords) {
+        foreach ($keywords as $keyword) {
+            $query->orWhere('category_name', 'LIKE', "%{$keyword}%")
+                  ->orWhere('description', 'LIKE', "%{$keyword}%");
+        }
+    })->get();
+}
 }
