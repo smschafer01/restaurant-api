@@ -16,7 +16,8 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/restaurant_chains",
+            "raw": "{{base_url}}/restaurant_chains?page=1&per_page=10&sort=chain_id&order=asc",
+          
               "host": [
                 "{{base_url}}"
               ],
@@ -75,7 +76,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/amenities",
+              "raw": "{{base_url}}/amenities?page=1&per_page=10&sort=amenity_id&order=asc",
               "host": [
                 "{{base_url}}"
               ],
@@ -134,7 +135,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/menu_categories",
+              "raw": "{{base_url}}/menu_categories?page=1&per_page=10&sort=category_id&order=asc"
               "host": [
                 "{{base_url}}"
               ],
@@ -174,7 +175,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/locations",
+              "raw": "{{base_url}}/locations?page=1&per_page=10&sort=location_id&order=asc",
               "host": [
                 "{{base_url}}"
               ],
