@@ -31,25 +31,17 @@ class MenuCategoryController {
         return Helper::withJson($response, ['message' => 'Menu category deleted successfully'], 200);
     }
 
-    // GET /api/v1/menu_categories/search?q=keyword
-    public function search(Request $request, Response $response, array $args) : Response {
-        $params = $request->getQueryParams();
-        $q = $params['q'] ?? '';
+  public function search(Request $request, Response $response, array $args) : Response {
+    $params = $request->getQueryParams();
+    $q = $params['q'] ?? '';
 
-        if (empty($q)) {
-            return Helper::withJson($response, ['message' => 'Search query parameter q is required'], 400);
-        }
-
-        $keywords = explode(' ', trim($q));
-
-        $results = MenuCategory::where(function($query) use ($keywords) {
-            foreach ($keywords as $keyword) {
-                $query->orWhere('category_name', 'LIKE', "%{$keyword}%")
-                      ->orWhere('description', 'LIKE', "%{$keyword}%");
-            }
-        })->get();
-
-        return Helper::withJson($response, $results, 200);
+    if (empty($q)) {
+        return Helper::withJson($response, ['message' => 'Search query parameter q is required'], 400);
     }
+
+    $keywords = explode(' ', trim($q));
+    $results = MenuCategory::searchMenuCategories($keywords);
+    return Helper::withJson($response, $results, 200);
+}
 }
  
