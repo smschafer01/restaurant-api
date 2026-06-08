@@ -9,7 +9,7 @@ class Amenity extends Model {
     public $incrementing = true;
     public $timestamps = false;
 
-    public static function getAmenities() {
+    public static function getAmenities ($request) {
         return self::all();
     }
 
