@@ -14,7 +14,7 @@ class MenuCategory extends Model {
         return $this->hasMany(MenuItem::class, 'category_id', 'category_id');
     }
 
-    public static function getMenuCategories() {
+    public static function getMenuCategories($request) {
     return self::all();
     }
 
