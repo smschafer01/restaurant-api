@@ -11,7 +11,7 @@ class MenuCategoryController {
     // GET /api/v1/menu_categories
     // Returns all menu categories
     public function index(Request $request, Response $response, array $args) : Response {
-        $results = MenuCategory::getMenuCategories();
+        $results = MenuCategory::getMenuCategories($request);
         return Helper::withJson($response, $results, 200);
     }
 
