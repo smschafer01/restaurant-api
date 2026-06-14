@@ -67,6 +67,14 @@ class Amenity extends Model {
         return self::with('locationAmenities')->findOrFail($amenity_id);
     }
 
+    //Delete a Menu Category
+    public static function deleteAmenity($request) {
+        //Retrieve id from the request
+        $id = $request->getAttribute('id');
+        $amenity = self::findOrFail($id);
+        return($amenity ? $amenity->delete() : $amenity);
+    }
+
     //Insert a new amenity
     public static function createAmenity($request) {
         //Retrieve parameters from request body

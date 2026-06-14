@@ -22,6 +22,14 @@ class MenuCategory extends Model {
         return self::findOrFail($id);
     }
 
+    //Delete a Menu Category
+    public static function deleteMenuCategory($request) {
+        //Retrieve id from the request
+        $id = $request->getAttribute('id');
+        $menuCategory = self::findOrFail($id);
+        return($menuCategory ? $menuCategory->delete() : $menuCategory);
+    }
+
     //Insert a new menu category
     public static function createMenuCategory($request) {
         //Retrieve parameters from request body

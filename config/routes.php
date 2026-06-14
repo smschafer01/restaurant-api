@@ -25,7 +25,7 @@ return function (App $app) {
             $group->get('', 'MenuCategory:index');
             $group->get('/search', 'MenuCategory:search');
             $group->get('/{category_id}', 'MenuCategory:view');
-            $group->delete('/{category_id}', 'MenuCategory:delete');
+            $group->delete('/{id}', 'MenuCategory:delete');
             $group->post('', 'MenuCategory:create');
             $group->put('/{id}', 'MenuCategory:update');
 
@@ -37,7 +37,7 @@ return function (App $app) {
             $group->get('/search', 'Amenity:search');
             $group->get('/{amenity_id}', 'Amenity:view');
             $group->get('/{amenity_id}/locations', 'Amenity:viewAmenityLocations');
-            $group->delete('/{amenity_id}', 'Amenity:delete');
+            $group->delete('/{id}', 'Amenity:delete');
             $group->post('', 'Amenity:create');
             $group->put('/{id}', 'Amenity:update');
 

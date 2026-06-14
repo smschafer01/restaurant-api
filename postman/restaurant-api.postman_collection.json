@@ -16,8 +16,7 @@
             "method": "GET",
             "header": [],
             "url": {
-            "raw": "{{base_url}}/restaurant_chains?page=1&per_page=10&sort=chain_id&order=asc",
-          
+              "raw": "{{base_url}}/restaurant_chains",
               "host": [
                 "{{base_url}}"
               ],
@@ -71,12 +70,118 @@
       "name": "Amenities",
       "item": [
         {
+          "name": "Pagination testing",
+          "item": [
+            {
+              "name": "Limit 5",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/amenities?limit=5",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "amenities"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "5"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "offset equals 5",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/amenities?offset=5",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "amenities"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "5"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "offset 5 limit 5",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/amenities?limit=5&offset=5",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "amenities"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "5"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "5"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Sorting",
+          "item": [
+            {
+              "name": "Sorting of Amenities",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/amenities?sort=amenity_name",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "amenities"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "amenity_name"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
           "name": "Get all Amenities",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/amenities?page=1&per_page=10&sort=amenity_id&order=asc",
+              "raw": "{{base_url}}/amenities",
               "host": [
                 "{{base_url}}"
               ],
@@ -111,14 +216,85 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/amenities/1/location",
+              "raw": "{{base_url}}/amenities/1/locations",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
                 "amenities",
                 "1",
-                "location"
+                "locations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create an Amenity",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n            \"amenity_name\": \"Playground\",\r\n            \"description\": \"Playground for public use\",\r\n            \"icon_name\": \"Playground\"\r\n        }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/amenities",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "amenities"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update an Amenity",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "        {\r\n            \"amenity_name\": \"Public Playground\",\r\n            \"description\": \"Playground for public use\",\r\n            \"icon_name\": \"Playground\"\r\n        }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/amenities/7",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "amenities",
+                "7"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete an Amenity",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/amenities/6",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "amenities",
+                "6"
               ]
             }
           },
@@ -130,12 +306,47 @@
       "name": "Menu Categories",
       "item": [
         {
+          "name": "Search for a menu category",
+          "item": [
+            {
+              "name": "New Request",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n            \"category_name\": \"Sauces\",\r\n            \"description\": \"Extra sauce packets\"\r\n        }"
+                },
+                "url": {
+                  "raw": "{{base_url}}/menu_categories?q=sweet",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "menu_categories"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "sweet"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
           "name": "Get all Menu Categories",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/menu_categories?page=1&per_page=10&sort=category_id&order=asc"
+              "raw": "{{base_url}}/menu_categories",
               "host": [
                 "{{base_url}}"
               ],
@@ -163,6 +374,59 @@
             }
           },
           "response": []
+        },
+        {
+          "name": "Create a Menu Category",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n            \"category_name\": \"Sauces\",\r\n            \"description\": \"Extra sauce packets\"\r\n        }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/menu_categories",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "menu_categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update a Menu Category",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "        {\r\n            \"category_name\": \"Sauces\",\r\n            \"description\": \"Extra sauce packets for food\"\r\n        }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/menu_categories/6",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "menu_categories",
+                "6"
+              ]
+            }
+          },
+          "response": []
         }
       ]
     },
@@ -175,7 +439,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/locations?page=1&per_page=10&sort=location_id&order=asc",
+              "raw": "{{base_url}}/locations",
               "host": [
                 "{{base_url}}"
               ],
