@@ -14,7 +14,6 @@ class User extends Model
     // Auto-incrementing ID
     public $incrementing = true;
 
-    // Primary key type
     protected $keyType = 'int';
 
     // created_at and updated_at
@@ -32,13 +31,13 @@ class User extends Model
         return self::find($id);
     }
 
-    // Create a new user
+    // Create a user
     public function createUser($data)
     {
         return self::create($data);
     }
 
-    // Update an existing user
+    // Update
     public function updateUser($id, $data)
     {
         $user = self::find($id);
@@ -69,4 +68,5 @@ class User extends Model
       //  password
       return password_verify($password, $user->password) ? $user : false;
   }
+    
 }
