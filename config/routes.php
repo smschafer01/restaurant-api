@@ -3,6 +3,8 @@ use Slim\App;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Routing\RouteCollectorProxy;
+use RestaurantAPI\Authentication\MyAuthenticator;
+
 
 return function (App $app) {
 
@@ -10,6 +12,15 @@ return function (App $app) {
         $response->getBody()->write('Welcome to Restaurant API!');
         return $response;
     });
+
+    // User routes (M1)
+$app->group('/api/v1/users', function(RouteCollectorProxy $group) {
+    $group->get('', 'User:index');
+    $group->get('/{id}', 'User:view');
+    $group->post('', 'User:create');
+    $group->put('/{id}', 'User:update');
+    $group->delete('/{id}', 'User:delete');
+});
 
     $app->group('/api/v1', function(RouteCollectorProxy $group) {
 
@@ -50,7 +61,7 @@ return function (App $app) {
             $group->get('/{location_id}/amenities', 'Locations:viewAmenities');
         });
 
-    });
+    })->add(new MyAuthenticator());
 
     $app->any('/{route:.*}', function (Request $request, Response $response) {
         $response->getBody()->write("Page Not Found");
