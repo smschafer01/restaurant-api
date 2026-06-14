@@ -339,6 +339,41 @@ ALTER TABLE `location_amenities`
 --
 ALTER TABLE `menu_items`
   ADD CONSTRAINT `fk_menu_items_category` FOREIGN KEY (`category_id`) REFERENCES `menu_categories` (`category_id`) ON UPDATE CASCADE;
+
+-- 
+-- Table structure for table `roles`
+--
+CREATE TABLE `roles` (
+  `id` tinyint(4) NOT NULL,
+  `role` varchar(25) NOT NULL,
+  `description` varchar(250) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+INSERT INTO `roles` (`id`, `role`, `description`) VALUES
+(1, 'System administrator', 'A system administrator has permissions to manage users and contents of the website.'),
+(2, 'User manager', 'A user manager has permission to manage user accounts.'),
+(3, 'Advanced user', 'Advanced users have access to additional features.'),
+(4, 'Basic user', 'Basic users have standard access.');
+
+--
+-- Table structure for table `users`
+--
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `username` varchar(20) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `role` tinyint(4) DEFAULT 4,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_username_uindex` (`username`),
+  KEY `fk_role_id` (`role`),
+  CONSTRAINT `fk_role_id` FOREIGN KEY (`role`) REFERENCES `roles` (`id`)
+);
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
